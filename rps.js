@@ -18,19 +18,15 @@ function computerPlay(){
 function playGame(c, p){
     
     if(c === p){
-        console.log("It's draw, play again.");
-    }else if(c === "scissors" && p === "paper"){
-        console.log("Computer Win");
-    }else if(c === "rock" && p === "scissors"){
-        console.log("Computer Win");
-    }else if(c === "paper" && p === "rock"){
-        console.log("Computer Win");
+        return "It's draw, play again.";
+    }else if(c === "scissors" && p === "paper" || c === "rock" && p === "scissors" || c === "paper" && p === "rock"){
+        return "You lose, "+ c + " beats " + p + "!";
     }else{
-        console.log("You Win");
+        return "You win!";
     }
 }
 
 let computerSelection = computerPlay();
-let playerSelection = prompt("Write your choice(rock-paper-scissors) : ");
+let playerSelection = prompt("Write your choice: ");
 
-playGame(computerSelection, playerSelection);
+console.log(playGame(computerSelection.toLocaleLowerCase(), playerSelection.toLocaleLowerCase()));
