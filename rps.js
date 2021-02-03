@@ -1,5 +1,39 @@
 /* Hello World! */
 
+function playGame(){
+    let computerSelection;
+    let playerSelection;
+
+    let computerScore = 0;
+    let playerScore = 0;
+
+    let result;
+    while(computerScore < 3 && playerScore < 3){
+        computerSelection = computerPlay();
+        playerSelection = prompt("Write your choice: ");
+
+        result = playRound(computerSelection, playerSelection);
+        console.log(result);
+
+        if(result === "You win!"){
+            playerScore++;
+        }else if(result === "It's draw, play again."){
+            /* Do nothing */
+        }else{
+            computerScore++;
+        }
+        console.log("Computer: " + computerScore + " You: " + playerScore);
+    }
+    
+
+    if(computerScore === 3){
+        return "Computer won the game!";
+    }else{
+        return "You won the game!"
+    }
+}
+
+
 function computerPlay(){
     let num = Math.floor(Math.random()*3);
 
@@ -15,7 +49,7 @@ function computerPlay(){
             break;
     }
 }
-function playGame(c, p){
+function playRound(c, p){
     
     if(c === p){
         return "It's draw, play again.";
@@ -26,7 +60,6 @@ function playGame(c, p){
     }
 }
 
-let computerSelection = computerPlay();
-let playerSelection = prompt("Write your choice: ");
 
-console.log(playGame(computerSelection.toLocaleLowerCase(), playerSelection.toLocaleLowerCase()));
+
+console.log(playGame());
