@@ -1,37 +1,19 @@
 /* Hello World! */
+let computerSelection;
+let playerSelection;
+let computerScore = 0;
+let playerScore = 0;
 
-function playGame(){
-    let computerSelection;
-    let playerSelection;
+const buttons = document.querySelectorAll(".weapon");
 
-    let computerScore = 0;
-    let playerScore = 0;
 
-    let result;
-    while(computerScore < 3 && playerScore < 3){
-        computerSelection = computerPlay();
-        playerSelection = prompt("Write your choice: ");
+buttons.forEach((button)=>{
+    button.addEventListener("click",()=>{
+        playerSelection = button.textContent.toLocaleLowerCase();
+        playRound(computerPlay(), playerSelection);
+    });
+});
 
-        result = playRound(computerSelection, playerSelection);
-        console.log(result);
-
-        if(result === "You win!"){
-            playerScore++;
-        }else if(result === "It's draw, play again."){
-            /* Do nothing */
-        }else{
-            computerScore++;
-        }
-        console.log("Computer: " + computerScore + " You: " + playerScore);
-    }
-    
-
-    if(computerScore === 3){
-        return "Computer won the game!";
-    }else{
-        return "You won the game!"
-    }
-}
 
 
 function computerPlay(){
@@ -49,17 +31,53 @@ function computerPlay(){
             break;
     }
 }
-function playRound(c, p){
-    
-    if(c === p){
-        return "It's draw, play again.";
-    }else if(c === "scissors" && p === "paper" || c === "rock" && p === "scissors" || c === "paper" && p === "rock"){
-        return "You lose, "+ c + " beats " + p + "!";
+
+function showWinner(){
+    const par = document.querySelector(".result");
+    if(computerScore > playerScore){
+        par.textContent = "YOU LOST!"
     }else{
-        return "You win!";
+        par.textContent = "YOU WON!"
     }
 }
 
+function restart(){
+    playerScore = 0;
+    computerScore = 0;
+    let content = document.querySelector(".playersc");
+    content.textContent = "Player: "+playerScore;
+    content = document.querySelector(".computersc");
+    content.textContent = computerScore+" :Computer";
+    content = document.querySelector(".result");
+    content.textContent = "So you wanna continue.. Interesting! Let's fight!"
+}
 
+function playRound(c, p){
+    const par = document.querySelector(".result");
+    let score;
+    if(c === p){
+        par.textContent = "It's draw, play again.";
+    }else if(c === "scissors" && p === "paper" || c === "rock" && p === "scissors" || c === "paper" && p === "rock"){
+        computerScore++;
+        par.textContent = "You lose, "+ c + " beats " + p + "!";
+        score = document.querySelector(".computersc");
+        score.textContent = computerScore+" :Computer";
+    }else{
+        playerScore++;
+        par.textContent = "You win!";
+        score = document.querySelector(".playersc");
+        score.textContent = "Player: "+playerScore;
+    }
+    if(computerScore > 2 || playerScore > 2){
+        showWinner();
+        const board = document.querySelector(".game-board")
+        let retry = document.createElement('button');
+        retry.textContent = "RETRY!";
+        board.appendChild(retry);
+        retry.addEventListener("click",()=>{
+            restart();
+        });
 
-console.log(playGame());
+    }else;
+}
+

@@ -1,0 +1,29 @@
+body{
+    background-color:black;
+    color:white;
+    text-align: center;
+}
+
+h1{
+    font-family: 'Frijole', cursive;
+}
+
+.all{
+    background-color: brown;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.buttons{
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.doubledot{
+    font-family: 'Frijole', cursive;
+}
+
+.scores{
+    display: flex;
+    justify-content: space-evenly;
+}
