@@ -1,83 +1,82 @@
-/* Hello World! */
-let computerSelection;
-let playerSelection;
-let computerScore = 0;
+const result = document.getElementById("result");
+const plyScore = document.getElementById("player-score");
+const cmpScore = document.getElementById("computer-score");
+const container = document.querySelector("body");
+const choice = document.querySelectorAll("img");
+
+let finishScreen = document.createElement('div');
+
+let playerChoice = "";
+let computerChoice = "";
 let playerScore = 0;
+let computerScore = 0;
+let ready = 1;
 
-const buttons = document.querySelectorAll(".weapon");
-
-
-buttons.forEach((button)=>{
-    button.addEventListener("click",()=>{
-        playerSelection = button.textContent.toLocaleLowerCase();
-        playRound(computerPlay(), playerSelection);
+choice.forEach(img=>{
+    img.addEventListener("click",()=>{
+        playerChoice = img.alt;
+        computerChoice = computerOutput();
+        play();
     });
 });
 
+function play(){
+    if(playerChoice == computerChoice){
+        result.textContent = "IT'S DRAW, PLAY AGAIN!";
+    }else if(playerChoice === "rock" && computerChoice === "scissors" || playerChoice === "scissors" && computerChoice === "apper" || playerChoice === "paper" && computerChoice === "rock"){
+        playerScore++;
+        plyScore.textContent = playerScore;
+        result.textContent = "YOU WIN!";
+    }else{
+        computerScore++;
+        cmpScore.textContent = computerScore;
+        result.textContent = "YOU LOST..";
+    }
 
+    if(computerScore === 3 || playerScore === 3){
+        ready = 0;
+        
+        finishScreen.classList.add("finish");
+        let retry = document.createElement('div');
+        retry.classList.add("retry");
+        retry.textContent = "RETRY";
+        retry.addEventListener("click", restart);
 
-function computerPlay(){
-    let num = Math.floor(Math.random()*3);
+        let last = document.createElement('p');
+        if(computerScore === 3){
+            last.classList.add("loser");
+            last.textContent = "LOSER.."
+        }else{
+            last.classList.add("winner");
+            last.textContent = "WINNER WINNER CHICKEN DINNER!"
+        }
+        finishScreen.appendChild(last);
+        finishScreen.appendChild(retry);
+        container.appendChild(finishScreen);
+        
 
-    switch(num){
-        case 0:
-            return "rock";
-            break;
-        case 1:
-            return "paper";
-            break;
-        case 2:
-            return "scissors";
-            break;
     }
 }
 
-function showWinner(){
-    const par = document.querySelector(".result");
-    if(computerScore > playerScore){
-        par.textContent = "YOU LOST!"
-    }else{
-        par.textContent = "YOU WON!"
+function computerOutput(){
+    let ans = Math.floor(Math.random()*3);
+    switch(ans){
+        case 0:
+            return "rock";
+        case 1:
+            return "paper";
+        case 2:
+            return "scissors";
     }
 }
 
 function restart(){
     playerScore = 0;
+    plyScore.textContent = playerScore;
     computerScore = 0;
-    let content = document.querySelector(".playersc");
-    content.textContent = "Player: "+playerScore;
-    content = document.querySelector(".computersc");
-    content.textContent = computerScore+" :Computer";
-    content = document.querySelector(".result");
-    content.textContent = "So you wanna continue.. Interesting! Let's fight!"
-}
-
-function playRound(c, p){
-    const par = document.querySelector(".result");
-    let score;
-    if(c === p){
-        par.textContent = "It's draw, play again.";
-    }else if(c === "scissors" && p === "paper" || c === "rock" && p === "scissors" || c === "paper" && p === "rock"){
-        computerScore++;
-        par.textContent = "You lose, "+ c + " beats " + p + "!";
-        score = document.querySelector(".computersc");
-        score.textContent = computerScore+" :Computer";
-    }else{
-        playerScore++;
-        par.textContent = "You win!";
-        score = document.querySelector(".playersc");
-        score.textContent = "Player: "+playerScore;
-    }
-    if(computerScore > 2 || playerScore > 2){
-        showWinner();
-        const board = document.querySelector(".game-board")
-        let retry = document.createElement('button');
-        retry.textContent = "RETRY!";
-        board.appendChild(retry);
-        retry.addEventListener("click",()=>{
-            restart();
-        });
-
-    }else;
+    cmpScore.textContent = computerScore;
+    result.textContent = "FIGHT!";
+    for(let i = 0; i < 2; i++){ finishScreen.removeChild(finishScreen.firstChild); }
+    container.removeChild(finishScreen);
 }
 

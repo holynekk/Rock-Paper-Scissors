@@ -6,29 +6,33 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Frijole&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Hairline&display=swap" rel="stylesheet"> 
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
     </head>
 
     <body>
-        <h1>Rock-Paper-Scissors</h1>
-        <div class="all">
+        <h1>ROCK PAPER SCISSORS</h1>
+        <div class="main-container">
+            <div class="score-board">
+                <p class="tag" id="player-tag">USER</p>
+                <p id="player-score">0</p>
+                <p> : </p>
+                <p id="computer-score">0</p>
+                <p class="tag" id="computer-tag">COMP.</p>
+            </div>
+            <p id="quote">Make your choice and smash your opponent!</p>
             <div class="buttons">
-                <button class="weapon">Rock</button>
-                <button class="weapon">Paper</button>
-                <button class="weapon">Scissors</button>
+                <div class="button"><img src="assets/rock.png" alt="rock"></div>
+                <div class="button"><img src="assets/paper.png" alt="paper"></div>
+                <div class="button"><img src="assets/scissors.png" alt="scissors"></div>
             </div>
-            <div class="game-board">
-                <p class="result">What are you waiting for? Let's fight</p>
-            </div>
-            <div class="scores">
-                <p class="playersc">Player: 0</p>
-                <p class="doubledot">:</p>
-                <p class="computersc">0 :Computer</p>
-            </div>
+            <p id="fight-quote">Choose your weapon and fight like a real man!!</p>
+            <hr>
+            <p id="result">Fight!</p>
         </div>
         
-
-
         <script src="rps.js" defer></script>
     <body>
 
